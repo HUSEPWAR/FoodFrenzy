@@ -1,0 +1,4 @@
+@FoodFrenzy_API_HostAddress = https://localhost:7252
+
+GET {{FoodFrenzy_API_HostAddress}}/api/FoodFrenzy
+Accept: application/json

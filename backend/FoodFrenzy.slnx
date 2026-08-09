@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="FoodFrenzy.API/FoodFrenzy.API.csproj" />
+  <Project Path="FoodFrenzy.Application/FoodFrenzy.Application.csproj" />
+  <Project Path="FoodFrenzy.Domain/FoodFrenzy.Domain.csproj" />
+  <Project Path="FoodFrenzy.Infrastructure/FoodFrenzy.Infrastructure.csproj" />
+  <Project Path="FoodFrenzy.Tests/FoodFrenzy.Tests.csproj" />
+</Solution>
