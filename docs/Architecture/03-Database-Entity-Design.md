@@ -42,7 +42,9 @@ Menu
 MenuCategory
    ↓
 MenuItem
-3. Country Entity
+
+## 3. Country Entity
+
 Purpose
 
 Represents a country supported by FoodFrenzy.
@@ -67,7 +69,9 @@ Rules
 Country Code must be unique.
 Only active countries should be available for normal platform operations.
 Country-specific configuration must not be hard-coded into application logic.
-4. Region Entity
+
+## 4. Region Entity
+
 Purpose
 
 Represents a state, province or equivalent administrative region.
@@ -92,7 +96,9 @@ Rules
 A Region belongs to exactly one Country.
 Region Code should be unique within its Country.
 A Region cannot exist without a valid Country.
-5. City Entity
+
+## 5. City Entity
+
 Purpose
 
 Represents a city where FoodFrenzy operates.
@@ -118,7 +124,9 @@ Rules
 A City belongs to exactly one Region.
 City Code should be unique within its Region.
 City time-zone information must be configurable.
-6. ServiceArea Entity
+
+## 6. ServiceArea Entity
+
 Purpose
 
 Represents an operational delivery area within a city.
@@ -143,7 +151,9 @@ Rules
 A ServiceArea belongs to exactly one City.
 ServiceArea Code should be unique within its City.
 A ServiceArea can be activated or deactivated independently.
-7. Restaurant Entity
+
+## 7. Restaurant Entity
+
 Purpose
 
 Represents the restaurant business or restaurant brand.
@@ -169,7 +179,9 @@ Rules
 A Restaurant can have multiple branches.
 Restaurant-level information belongs to the Restaurant entity.
 Branch-specific information must not be stored directly in Restaurant.
-8. RestaurantBranch Entity
+
+## 8. RestaurantBranch Entity
+
 Purpose
 
 Represents a physical operating location of a Restaurant.
@@ -207,7 +219,9 @@ A branch belongs to exactly one Restaurant.
 A branch belongs to one ServiceArea.
 A branch must have a valid geographic location.
 Branch operational information must remain separate from Restaurant-level information.
-9. Menu Entity
+
+## 9. Menu Entity
+
 Purpose
 
 Represents a menu associated with a Restaurant Branch.
@@ -232,7 +246,8 @@ Rules
 A Menu belongs to one RestaurantBranch.
 A branch can have multiple menus.
 Only active menus should normally be available to customers.
-10. MenuCategory Entity
+
+## 10. MenuCategory Entity
 Purpose
 
 Groups menu items into logical categories.
@@ -261,7 +276,9 @@ Menu
 One-to-Many
    ↓
 MenuCategory
-11. MenuItem Entity
+
+## 11. MenuItem Entity
+
 Purpose
 
 Represents an individual food or beverage item that customers can order.
@@ -290,7 +307,9 @@ Price must be greater than or equal to zero.
 Menu items must belong to a valid MenuCategory.
 Availability and active status are separate concepts.
 An unavailable item should not normally be orderable.
-12. Relationship Summary
+
+## 12. Relationship Summary
+
 Country
    │
    └── Region
@@ -309,6 +328,55 @@ Country
                                │
                                └── Restaurant
 
+
+                               
+ Our Current Entity Map
+
+We currently have:
+
+Country
+   │
+   └── Region
+         │
+         └── City
+               │
+               └── ServiceArea
+                     │
+                     └── Restaurant
+                           │
+                           └── RestaurantBranch
+                                 │
+                                 └── Menu
+                                       │
+                                       └── MenuCategory
+                                             │
+                                             └── MenuItem
+
+
+                                             Country
+                                             
+   │ 1
+   └──────── * Region
+                  │ 1
+                  └──────── * City
+                                 │ 1
+                                 └──────── * ServiceArea
+                                                │ 1
+                                                ├──────── * Restaurant
+                                                │
+                                                └──────── * RestaurantBranch
+                                                           │
+Restaurant ────────────────────────────────────────────────┘
+   │ 1
+   └──────── * RestaurantBranch
+                  │ 1
+                  └──────── * Menu
+                                 │ 1
+                                 └──────── * MenuCategory
+                                                │ 1
+                                                └──────── * MenuItem
+
+
 Restaurant ownership relationship:
 
 Restaurant
@@ -326,7 +394,8 @@ City
 ServiceArea
    ↓
 RestaurantBranch
-13. Primary Key Strategy
+
+## 13. Primary Key Strategy
 
 The initial design will use a primary key for every entity.
 
@@ -342,7 +411,7 @@ MenuItem.Id
 
 The final identifier strategy will be standardized before implementation.
 
-14. Foreign Key Strategy
+## 14. Foreign Key Strategy
 
 Foreign keys will maintain referential integrity.
 
@@ -359,7 +428,7 @@ MenuItem.MenuCategoryId
 
 Invalid references must be prevented by database constraints and application validation.
 
-15. Audit Fields
+## 15. Audit Fields
 
 The initial entities will use common audit fields:
 
@@ -376,7 +445,7 @@ DeletedBy
 
 The final audit strategy will be standardized before implementation.
 
-16. Soft Delete Strategy
+## 16. Soft Delete Strategy
 
 FoodFrenzy will use a soft-delete approach where appropriate.
 
@@ -388,7 +457,7 @@ will allow the system to preserve historical information.
 
 Soft-delete behavior must be applied consistently through the application/data-access layer.
 
-17. Active Status
+## 17. Active Status
 
 Business entities will use an active status where operational activation/deactivation is required.
 
@@ -404,7 +473,7 @@ Deleted
 
 These states must be handled consistently by application business rules.
 
-18. Index Strategy
+## 18. Index Strategy
 
 Indexes will be added based on actual query requirements.
 
@@ -422,7 +491,7 @@ MenuItem.MenuCategoryId
 
 Indexes will be reviewed during database implementation and performance testing.
 
-19. Data Isolation Direction
+## 19. Data Isolation Direction
 
 FoodFrenzy must enforce authorized data access.
 
@@ -436,7 +505,7 @@ Platform administrators access data according to their assigned permissions.
 
 The detailed tenant and authorization model will be defined separately.
 
-20. Future Entity Requirements
+## 20. Future Entity Requirements
 
 The following entities are intentionally not included in this initial design and will be designed in later phases:
 
@@ -464,7 +533,7 @@ RestaurantServiceArea
 
 These will be introduced after the core geography and restaurant structure is finalized.
 
-21. Current Status
+## 21. Current Status
 
 Status: Database Design Defined
 

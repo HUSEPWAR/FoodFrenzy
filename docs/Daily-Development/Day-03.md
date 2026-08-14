@@ -163,7 +163,7 @@ These are planned requirements and are not considered completed on Day 3.
 
 Day 4 will begin the Product and System Architecture phase.
 
-The team will define:
+The team ( I am ) will define:
 
 Product vision
 Business requirements
