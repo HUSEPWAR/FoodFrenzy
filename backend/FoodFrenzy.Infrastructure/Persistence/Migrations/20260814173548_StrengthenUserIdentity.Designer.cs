@@ -4,6 +4,7 @@ using FoodFrenzy.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodFrenzy.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(FoodFrenzyDbContext))]
-    partial class FoodFrenzyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260814173548_StrengthenUserIdentity")]
+    partial class StrengthenUserIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FoodFrenzy.Domain.Entities;
+﻿using FoodFrenzy.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -27,17 +24,35 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(255)
             .IsRequired();
 
-        builder.HasIndex(user => user.Email)
+        builder.HasIndex(user => user.NormalizedEmail)
+            .IsUnique();
+
+       // builder.Property(user => user.NormalizedEmail)
+            //.HasMaxLength(255)
+            //.IsRequired();
+
+        builder.HasIndex(user => user.NormalizedEmail)
             .IsUnique();
 
         builder.Property(user => user.PasswordHash)
+            .HasMaxLength(500)
             .IsRequired();
 
         builder.Property(user => user.PhoneNumber)
             .HasMaxLength(20);
 
+        builder.Property(user => user.IsEmailVerified)
+            .IsRequired();
+
         builder.Property(user => user.IsActive)
             .IsRequired();
+
+        builder.Property(user => user.FailedLoginAttempts)
+            .IsRequired();
+
+        builder.Property(user => user.LockoutEnd);
+
+        builder.Property(user => user.LastLoginAt);
 
         builder.Property(user => user.CreatedAt)
             .IsRequired();
@@ -45,3 +60,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(user => user.UpdatedAt);
     }
 }
+
+
+
+
+
