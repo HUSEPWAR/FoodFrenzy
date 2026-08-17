@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodFrenzy.Application\FoodFrenzy.Application.csproj" />
+    <ProjectReference Include="..\FoodFrenzy.Infrastructure\FoodFrenzy.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

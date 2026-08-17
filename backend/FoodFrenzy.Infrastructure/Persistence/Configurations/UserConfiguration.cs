@@ -24,12 +24,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(255)
             .IsRequired();
 
-        builder.HasIndex(user => user.NormalizedEmail)
-            .IsUnique();
-
-       // builder.Property(user => user.NormalizedEmail)
-            //.HasMaxLength(255)
-            //.IsRequired();
+        builder.Property(user => user.NormalizedEmail)
+       .HasMaxLength(255)
+       .IsRequired();
 
         builder.HasIndex(user => user.NormalizedEmail)
             .IsUnique();
@@ -60,8 +57,3 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(user => user.UpdatedAt);
     }
 }
-
-
-
-
-
