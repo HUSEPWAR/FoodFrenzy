@@ -1,4 +1,5 @@
 using FoodFrenzy.Application.Users.Registration;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoodFrenzy.API.Controllers;
@@ -16,6 +17,10 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost("register")]
+    [ProducesResponseType(typeof(RegisterUserResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Register(
         [FromBody] RegisterUserRequest request,
         CancellationToken cancellationToken)
@@ -24,16 +29,21 @@ public class UsersController : ControllerBase
             request,
             cancellationToken);
 
-        return Ok(new
+        var response = new RegisterUserResponse
         {
-            user.Id,
-            user.FirstName,
-            user.LastName,
-            user.Email,
-            user.PhoneNumber,
-            user.IsEmailVerified,
-            user.IsActive,
-            user.CreatedAt
-        });
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            PhoneNumber = user.PhoneNumber,
+            IsEmailVerified = user.IsEmailVerified,
+            IsActive = user.IsActive,
+            CreatedAt = user.CreatedAt
+        };
+
+        return CreatedAtAction(
+            nameof(Register),
+            new { id = user.Id },
+            response);
     }
 }

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace FoodFrenzy.Application.Users.Login;
 
-namespace FoodFrenzy.Application.Users.Login
+public sealed class LoginUserRequest
 {
-    internal class LoginUserRequest
-    {
-    }
+    public string Email { get; set; } = string.Empty;
+
+    public string Password { get; set; } = string.Empty;
 }

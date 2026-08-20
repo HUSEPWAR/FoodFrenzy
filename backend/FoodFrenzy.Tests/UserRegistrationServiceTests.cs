@@ -231,5 +231,52 @@ public sealed class UserRegistrationServiceTests
             return passwordHash == $"HASHED_{password}";
         }
     }
+    [Fact]
+public async Task RegisterAsync_ShouldRejectLongFirstName()
+{
+    var service = CreateService();
+
+    var request = CreateValidRequest();
+    request.FirstName = new string('A', 101);
+
+    var exception = await Assert.ThrowsAsync<ArgumentException>(
+        () => service.RegisterAsync(request));
+
+    Assert.Equal(
+        "First name cannot exceed 100 characters.",
+        exception.Message);
+}
+
+[Fact]
+public async Task RegisterAsync_ShouldRejectLongLastName()
+{
+    var service = CreateService();
+
+    var request = CreateValidRequest();
+    request.LastName = new string('A', 101);
+
+    var exception = await Assert.ThrowsAsync<ArgumentException>(
+        () => service.RegisterAsync(request));
+
+    Assert.Equal(
+        "Last name cannot exceed 100 characters.",
+        exception.Message);
+}
+
+[Fact]
+public async Task RegisterAsync_ShouldRejectEmptyPassword()
+{
+    var service = CreateService();
+
+    var request = CreateValidRequest();
+    request.Password = "";
+
+    var exception = await Assert.ThrowsAsync<ArgumentException>(
+        () => service.RegisterAsync(request));
+
+    Assert.Equal(
+        "Password is required.",
+        exception.Message);
+}
 }
 
