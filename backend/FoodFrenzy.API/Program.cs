@@ -4,8 +4,9 @@ using FoodFrenzy.Infrastructure.Repositories;
 using FoodFrenzy.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 using FoodFrenzy.API.Exceptions;
-using FoodFrenzy.Application.Users.Registration;
 using FoodFrenzy.Application.Users;
+using FoodFrenzy.Application.Users.Registration;
+using FoodFrenzy.Application.Users.Login;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddProblemDetails();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPasswordHasher, Argon2PasswordHasher>();
 builder.Services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+builder.Services.AddScoped<IUserLoginService, UserLoginService>();
 
 builder.Services.AddDbContext<FoodFrenzyDbContext>(options =>
     options.UseSqlServer(

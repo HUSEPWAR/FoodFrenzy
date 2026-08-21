@@ -23,7 +23,8 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
             "An unhandled exception occurred.");
 
         var statusCode = exception switch
-        {
+        {   
+            UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
             InvalidOperationException => StatusCodes.Status409Conflict,
             ArgumentException => StatusCodes.Status400BadRequest,
             _ => StatusCodes.Status500InternalServerError
@@ -33,7 +34,8 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
         {
             Status = statusCode,
             Title = statusCode switch
-            {
+            { 
+                StatusCodes.Status401Unauthorized => "Unauthorized",
                 StatusCodes.Status409Conflict => "Conflict",
                 StatusCodes.Status400BadRequest => "Bad Request",
                 _ => "Internal Server Error"

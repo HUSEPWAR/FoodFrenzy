@@ -1,6 +1,7 @@
-using FoodFrenzy.Application.Users.Registration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using FoodFrenzy.Application.Users.Registration;
+using FoodFrenzy.Application.Users.Login;
 
 namespace FoodFrenzy.API.Controllers;
 
@@ -9,11 +10,14 @@ namespace FoodFrenzy.API.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly IUserRegistrationService _registrationService;
+    private readonly IUserLoginService _loginService;
 
     public UsersController(
-        IUserRegistrationService registrationService)
+        IUserRegistrationService registrationService,
+        IUserLoginService loginService)
     {
         _registrationService = registrationService;
+        _loginService = loginService;
     }
 
     [HttpPost("register")]
@@ -45,5 +49,26 @@ public class UsersController : ControllerBase
             nameof(Register),
             new { id = user.Id },
             response);
+    }
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(
+    [FromBody] LoginUserRequest request,
+    CancellationToken cancellationToken)
+    {
+        var user = await _loginService.LoginAsync(
+            request,
+            cancellationToken);
+
+        return Ok(new
+        {
+            user.Id,
+            user.FirstName,
+            user.LastName,
+            user.Email,
+            user.PhoneNumber,
+            user.IsEmailVerified,
+            user.IsActive,
+            user.LastLoginAt
+        });
     }
 }
